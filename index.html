@@ -9,6 +9,7 @@
        Version : 1.2
     ============================================
 -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,16 +71,19 @@
             <div class="map-panel">
 
                 <div id="network"></div>
-            
-                <div style="display: absolute; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+
+                <div
+                    style="display: absolute; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h2 style="color: var(--color-primary);">
-                        
+
                         <span style="font-size: 0.8rem; color: var(--color-text-secondary); margin-left: 10px;">
-                            <a href="https://github.com/berru-g/crypto-tool/blob/main/scam-radar/enquete/readme.md" style="color: var(--color-text-secondary); text-decoration: underline;">Read me</a> 
+                            <a href="https://github.com/berru-g/crypto-tool/blob/main/scam-radar/enquete/readme.md"
+                                style="color: var(--color-text-secondary); text-decoration: underline;">Read me</a>
                         </span>
                         <span style="font-size: 0.8rem; color: var(--color-text-secondary); margin-left: 10px;">
-                            <a href="../index.html" style="color: var(--color-text-secondary); text-decoration: underline;">(Retour au
-                                Scam Radar)</a> 
+                            <a href="../index.html"
+                                style="color: var(--color-text-secondary); text-decoration: underline;">(Retour au
+                                Scam Radar)</a>
                         </span>
                     </h2>
                     <div class="map-controls">
@@ -145,6 +149,72 @@
             </div>
         </div>
 
+        <!-- AJOUTER CETTE SECTION APRÈS LE PANEL DROITE (.map-panel) ET AVANT LA SECTION .notes-section -->
+        <div class="summary-section">
+            <h3 style="color: var(--color-primary); margin-bottom: 15px;">
+                <i class="fa-solid fa-file-lines"></i> SYNOPSIS DE L'ENQUÊTE
+            </h3>
+            <div class="summary-content">
+                <div class="summary-block">
+                    <h4><i class="fa-solid fa-circle-play"></i> Origine</h4>
+                    <p>Arnaque à l'investissement (promesse de ROI) via une URL frauduleuse pointant vers <strong>Ramp
+                            Network</strong>.</p>
+                    <p><strong>L'url contient une adress bitcoin</strong> : <code
+                            style="background:#eee; padding:2px 5px; border-radius:3px;">bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp</code>
+                    </p>
+                </div>
+
+                <div class="summary-block">
+                    <h4><i class="fa-solid fa-diagram-project"></i> Méthode & Découverte</h4>
+                    <p>Cartographie des transactions depuis l'adresse source. Identification d'un schéma de
+                        <strong>"mixer"</strong> :</p>
+                    <ul style="margin-top:5px; padding-left:20px;">
+                        <li>Wallets <span style="color:#888;">gris</span> : "<em>one-shot</em>" (un usage par arnaque).
+                        </li>
+                        <li>Wallets <span style="color:#63e6be;">verts</span> : <strong>intermédiaires</strong> de
+                            concentration.</li>
+                        <li>Wallets <span style="color:#ee6055;">rouges</span> : <strong>sorties</strong> potentielles
+                            vers exchange (KYC).</li>
+                    </ul>
+                    <p><strong>Outils</strong> : Blockstream, Mempool.space & outils "Scam Radar" maison.</p>
+                </div>
+
+                <div class="summary-block">
+                    <h4><i class="fa-solid fa-bullseye"></i> Cible Principale (KYC)</h4>
+                    <p>Identifier un wallet ayant subi une vérification d'identité (<strong>KYC</strong>) pour remonter
+                        à l'arnaqueur.</p>
+                    <p><strong>Piste majeure (01/01/26)</strong> : Le wallet <code
+                            style="background:#eee; padding:2px 5px; border-radius:3px;">bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz</code>
+                        présente des <strong>indicateurs forts d'un exchange</strong> (activité 24/7, transactions
+                        massives, pattern de "batch processing").</p>
+                    <p>Liens d'investigation : <a
+                            href="https://www.bitcoinwhoswho.com/address/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz"
+                            target="_blank">BitcoinWhosWho</a> • <a
+                            href="https://www.blockchain.com/explorer/addresses/btc/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz"
+                            target="_blank">Blockchain.com</a></p>
+                </div>
+
+                <div class="summary-block">
+                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Actions Recommandées</h4>
+                    <ol style="margin-top:5px; padding-left:20px;">
+                        <li><strong>Déposer plainte</strong> avec preuves (conversations, relevés bancaires, emails
+                            Ramp).</li>
+                        <li><strong>Signaler à Ramp Network</strong> l'URL frauduleuse et la clé API
+                            (<code>n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56</code>).</li>
+                        <li>Suivre les flux vers l'<strong>exchange potentiel</strong> pour identification par KYC.</li>
+                    </ol>
+                </div>
+
+                <div
+                    style="margin-top:15px; padding:12px; background-color:#fff8e1; border-left:4px solid #ffc107; font-size:0.9rem;">
+                    <strong><i class="fa-solid fa-lightbulb"></i> Note :</strong> Cette synthèse est issue du <a
+                        href="https://github.com/berru-g/enquete/blob/main/readme.md" target="_blank">dossier complet
+                        (README)</a>. L'enquête évolue avec les nouveaux outils (analyse de mixer, détection
+                    d'exchange).
+                </div>
+            </div>
+        </div>
+
         <div class="notes-section">
             <h3 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fa-regular fa-message"></i> NOTES
                 D'ENQUÊTE</h3>
@@ -163,7 +233,9 @@
         <footer>
             <p>Dossier d'enquête • Mis à jour automatiquement</p>
             <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
-                via API <span style="font-weight: bold;">Blockstream.info</span> • <span style="font-weight: bold;">Blockchain.com</span> • <span style="font-weight: bold;">Mempool.space</span>   
+                via API <span style="font-weight: bold;">Blockstream.info</span> • <span
+                    style="font-weight: bold;">Blockchain.com</span> • <span
+                    style="font-weight: bold;">Mempool.space</span>
             </p>
         </footer>
     </div>
