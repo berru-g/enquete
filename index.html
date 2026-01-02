@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : 
+       Description : 
+       Date : 20/11/2025
+       Version : 1.2
+    ============================================
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOSSIER ENQUÊTE BITCOIN - Cartographie Wallets</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
+    <link rel="stylesheet" href="./script/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!--<div class="header">
+            <h1>DOSSIER ENQUÊTE E***</h1>
+            <div class="subtitle">Cartographie des wallets avec les plus grosses transaction sortante depuis l'adress
+                source</div>
+        </div>-->
+
+        <div class="main-content">
+            <!-- PANEL GAUCHE - LISTE DES WALLETS -->
+            <div class="wallet-panel">
+                <div class="wallet-controls">
+                    <h3 style="color: var(--color-primary); margin-bottom: 20px;">➕ AJOUTER UN WALLET</h3>
+                    <div class="wallet-input">
+                        <input type="text" id="newWalletInput" placeholder="bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp">
+                        <button onclick="addWalletFromInput()">Ajouter</button>
+                    </div>
+
+                    <!--<div class="search-box">
+                        <input type="text" id="searchWallet" placeholder="Rechercher un wallet..." onkeyup="searchWallets()">
+                    </div>-->
+
+                    <div style="margin: 20px 0;">
+                        <h4 style="color: var(--color-primary); margin-bottom: 10px;">WALLETS DÉJÀ IDENTIFIÉS</h4>
+                        <div style="font-size: 0.9rem; color: #666;">
+                            Cliquez pour charger les données blockchain
+                        </div>
+                    </div>
+                </div>
+
+                <div class="import-export">
+                    <button class="btn btn-primary" onclick="importWallets()"><i class="fa-solid fa-file-arrow-up"></i>
+                        Importer liste</button>
+                    <button class="btn btn-success" onclick="exportWallets()"><i class="fa-solid fa-file-arrow-up"></i>
+                        Exporter liste</button>
+                    <button class="btn btn-warning" onclick="clearAllWallets()"><i class="fa-solid fa-trash-can"></i>
+                        Tout effacer</button>
+                </div>
+
+                <div class="wallet-list" id="walletListContainer">
+                    <!-- Les wallets seront ajoutés ici dynamiquement -->
+                </div>
+            </div>
+
+            <!-- PANEL DROITE - CARTE -->
+            <div class="map-panel">
+
+                <div id="network"></div>
+            
+                <div style="display: absolute; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h2 style="color: var(--color-primary);">
+                        
+                        <span style="font-size: 0.8rem; color: var(--color-text-secondary); margin-left: 10px;">
+                            <a href="https://github.com/berru-g/crypto-tool/blob/main/scam-radar/enquete/readme.md" style="color: var(--color-text-secondary); text-decoration: underline;">Read me</a> 
+                        </span>
+                        <span style="font-size: 0.8rem; color: var(--color-text-secondary); margin-left: 10px;">
+                            <a href="../index.html" style="color: var(--color-text-secondary); text-decoration: underline;">(Retour au
+                                Scam Radar)</a> 
+                        </span>
+                    </h2>
+                    <div class="map-controls">
+                        <button class="btn btn-primary" onclick="fetchAllWalletData()"
+                            title="Forcer la mise à jour des données">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                        <button class="btn btn-warning" onclick="togglePhysics()"
+                            title="Activer/désactiver la physique">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                        <button class="btn btn-success" onclick="exportNetworkImage()"
+                            title="Exporter l'image du réseau">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <button class="btn btn-info" onclick="network.fit()" title="Recentrer la vue">
+                            <i class="fa-solid fa-maximize"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-display">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalWallets">0</div>
+                        <div class="stat-label">Wallets identifiés</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalConnections">0</div>
+                        <div class="stat-label">Connexions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalBTC">0</div>
+                        <div class="stat-label">BTC total estimé</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="criticalWallets">0</div>
+                        <div class="stat-label">Wallets critiques</div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ee6055;"></div>
+                        <span>Critique (>10 BTC)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ffd43b;"></div>
+                        <span>Élevé (>1 BTC)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #74c0fc;"></div>
+                        <span>Moyen</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #63e6be;"></div>
+                        <span>Faible</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #9c27b0;"></div>
+                        <span>Wallet source</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes-section">
+            <h3 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fa-regular fa-message"></i> NOTES
+                D'ENQUÊTE</h3>
+            <textarea class="notes-editor" id="investigationNotes"
+                placeholder="Ajoutez ici vos notes, hypothèses, observations sur l'enquête..."></textarea>
+            <div class="export-controls">
+                <button class="btn btn-primary" onclick="exportFullDossier()"><i class="fa-solid fa-file-export"></i>
+                    Exporter Diagramm.JSON</button>
+                <button class="btn btn-success" onclick="saveNotes()"><i class="fa-regular fa-floppy-disk"></i>
+                    Sauvegarder notes</button>
+                <button class="btn btn-warning" onclick="addTimestamp()"><i class="fa-solid fa-tower-cell"></i> Ajouter
+                    horodatage</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Dossier d'enquête • Mis à jour automatiquement</p>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
+                via API <span style="font-weight: bold;">Blockstream.info</span> • <span style="font-weight: bold;">Blockchain.com</span> • <span style="font-weight: bold;">Mempool.space</span>   
+            </p>
+        </footer>
+    </div>
+
+    <script src="./script/script.js"></script>
+    <script src="./script/morefeature.js"></script>
+    <script src="./script/mixer_analysis.js"></script>
+    <script src="./script/deep_transaction_fetch.js"></script>
+    <script src="./script/exchange_detection.js"></script>
+    <script src="./script/exchange_database.js"></script>
+    <script src="./script/timing_attack.js"></script>
+    <script src="./script/op_return_analysis.js"></script>
+    <script src="./script/advanced_clustering.js"></script>
+    <script src="./script/advanced_dashboard.js"></script>
+
+
+</body>
+
+</html>
