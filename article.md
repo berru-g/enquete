@@ -101,11 +101,13 @@ La faille, c'est le **KYC** (*Know Your Customer*). Quand tu veux convertir tes 
 
 **Mon objectif depuis le 03/12/2025 :** trouver, parmi les 8 wallets principaux ou les 400+ wallets reliés, celui qui a un jour interagi avec un service qui demande un KYC. Ce serait le jackpot : une adresse contrôlée par une personne identifiée.
 
-### 🔬 L'Upgrade Technique et la Piste Chaude (01/01/26)
+![Carte avec Exchange Probable](./img/carte-wallets-2026-01-01.png)
+
+### la Piste Chaude (01/01/26)
 
 Pour aller plus loin, j'ai poussé mon outil Scam Radar V2 avec de nouvelles features comme `deep_transaction_fetch.js` et `mixer_analysis.js`. Le but ? Détecter la moindre transaction cachée, le moindre wallet qui se planque dans le flot, sans avoir à passer 2 heures par adresse à tout vérifier manuellement.
 
-Et ça a payé. L'analyse renforce une piste énorme : le **Wallet n°8** (`bc1q9wvygkq7h...`), celui avec 267 BTC, présente **tous les signes d'un wallet appartenant à un exchange**.
+Et ça a payé. L'analyse renforce une piste énorme : le **Wallet** (`bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw`), aujourd'hui avec 207 BTC, présente **tous les signes d'un wallet appartenant à un exchange**.
 
 | Indicateur | Wallet n°8 (Observé) | Wallet Normal |
 | :--- | :--- | :--- |
@@ -113,9 +115,9 @@ Et ça a payé. L'analyse renforce une piste énorme : le **Wallet n°8** (`bc1q
 | **Transactions** | **Massives**, en batch | Quelques-unes, variables |
 | **Contreparties** | **Des centaines/ milliers** | Quelques dizaines |
 
-![Carte avec Exchange Probable](./img/carte-wallets-2026-01-01.png)
+![V2](./img/V2.png)
 
-**Ce que ça signifie :** L'arnaqueur a probablement envoyé ses gains accumulés sur une plateforme d'échange pour les convertir. Si c'est le cas, cette plateforme a **son identité** (passeport, permis de conduire). La piste est brûlante.
+**Impression :** Il s'agit d'un mixer que certainement, beaucoup de voleur utilise.  
 
 Des sites comme [BitcoinWhosWho](https://www.bitcoinwhoswho.com/address/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz) et l'explorer [Blockchain.com](https://www.blockchain.com/explorer/addresses/btc/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz) commencent aussi à taguer cette adresse comme suspecte.
 
