@@ -149,7 +149,7 @@ async function detectExternalTransactions(walletAddress, index) {
     }
 }
 
-// 3. BOUTON POUR VISUALISER LA RECHERCHE ÉTENDUE
+// 3. BOUTON POUR VISUALISER LA Search +
 function addExtendedSearchButton() {
     const controls = document.querySelector('.map-controls');
     if (!controls) return;
@@ -160,7 +160,7 @@ function addExtendedSearchButton() {
     const extendedBtn = document.createElement('button');
     extendedBtn.id = 'extendedSearchBtn';
     extendedBtn.className = 'control-btn';
-    extendedBtn.innerHTML = '<i class="fa-solid fa-radar"></i> Recherche étendue';
+    extendedBtn.innerHTML = '<i class="fa-solid fa-radar"></i> Search +';
     extendedBtn.onclick = showExtendedSearchModal;
     
     // Ajouter après les autres boutons
@@ -172,7 +172,7 @@ function addExtendedSearchButton() {
     }
 }
 
-// 4. MODAL POUR LA RECHERCHE ÉTENDUE
+// 4. MODAL POUR LA Search +
 function showExtendedSearchModal() {
     // Créer le modal s'il n'existe pas
     let modal = document.getElementById('extendedSearchModal');
@@ -215,7 +215,7 @@ function showExtendedSearchModal() {
                     align-items: center;
                 ">
                     <h2 style="margin: 0; font-size: 1.5rem;">
-                        <i class="fa-solid fa-radar"></i> Recherche étendue
+                        <i class="fa-solid fa-radar"></i> Search +
                     </h2>
                     <button onclick="closeExtendedSearchModal()" style="
                         background: none;
@@ -634,7 +634,7 @@ function integrateEnhancements() {
         setTimeout(() => detectExternalTransactions(address, index), 1000);
     };
     
-    // Ajouter le bouton de recherche étendue
+    // Ajouter le bouton de Search +
     setTimeout(addExtendedSearchButton, 500);
 }
 
